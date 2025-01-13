@@ -1,0 +1,49 @@
+<section class="signup-forms">
+    <form class="form-container" #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <mat-form-field>
+            <input 
+                type="email" 
+                matInput 
+                placeholder="Your email" 
+                ngModel 
+                name="email"
+                email
+                required
+                autocomplete="off"
+                #emailInput="ngModel"
+            >
+            @if (emailInput.hasError('required')) {
+                <mat-error>Email is invalid</mat-error>
+            } @else if (emailInput.value == '') { 
+                <mat-error>Field must not be empty</mat-error>
+            } @else { 
+                <mat-error>Email must be valid</mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field hintLabel="Should be atleast 6 characters long." align="start">
+            <input 
+                type="password" 
+                matInput 
+                placeholder="Your password" 
+                ngModel 
+                name="password"
+                required
+                minlength="6"
+                autocomplete="off"
+                #pwInput="ngModel"
+            >
+            <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="date-picker">
+            <input 
+                matInput 
+                placeholder="Your birthday" 
+                autocomplete="off" 
+                [matDatepicker]="picker"
+                [max]="maxDate">
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button mat-flat-button type="submit" class="submit-button" [disabled]="form.invalid">Submit</button>
+    </form>
+</section>

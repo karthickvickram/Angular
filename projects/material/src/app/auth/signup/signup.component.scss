@@ -1,0 +1,20 @@
+:host {
+    .signup-forms {
+        width: 300px;
+        margin: 0 auto;
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            
+            ::ng-deep {
+                .date-picker .mat-mdc-form-field-infix {
+                    display: flex;
+                }
+            }
+              
+            .submit-button {
+                align-self: center;
+            }
+        }
+    }
+}
