@@ -1,1 +1,27 @@
-<p>login works!</p>
+<section class="login-forms">
+    <form class="login-form-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <input 
+                type="email"
+                matInput
+                placeholder="Your email"
+                formControlName="email"
+                (blur)="updateInvalidEmail()"
+            >
+            <mat-error>{{ invalidEmailMsg() }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input 
+                type="password"
+                matInput
+                placeholder="Your password"
+                formControlName="password"
+                autocomplete="new-password"
+            >
+            <mat-error>Invalid password</mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button [disabled]="loginForm.invalid" class="submit-button" color="secondary">
+            Login
+        </button>
+    </form>
+</section>
