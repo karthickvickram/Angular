@@ -3,11 +3,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MaterialModule } from '../../material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { merge, Subject, takeUntil } from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, MaterialModule],
+  imports: [ReactiveFormsModule, MaterialModule, TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: [
@@ -20,8 +21,8 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
   private destroyed$:Subject<number> = new Subject<number>();
   public invalidEmailMsg = signal('');
 
-  constructor() {
-    
+  constructor(public translateService: TranslateService) {
+    this.translateService.use('ta');
   }
 
   ngOnInit(): void {
@@ -47,11 +48,11 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
     const emailFC = this.loginForm.get('email');
     if (emailFC?.invalid) {
       if (emailFC.hasError('required')) {
-        this.invalidEmailMsg.set('Please enter your mail');
+        this.invalidEmailMsg.set(this.translateService.instant('correctEmail'));
       } else if(emailFC.hasError('email')) {
-        this.invalidEmailMsg.set('Please enter a valid mail');
+        this.invalidEmailMsg.set(this.translateService.instant('validEmail'));
       } else {
-        this.invalidEmailMsg.set('Please enter a valid mail');
+        this.invalidEmailMsg.set(this.translateService.instant('validEmail'));
       }
     } else {
       this.invalidEmailMsg.set('');

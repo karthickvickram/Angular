@@ -4,7 +4,7 @@
             <input 
                 type="email"
                 matInput
-                placeholder="Your email"
+                placeholder="{{ 'enterEmail' | translate}}"
                 formControlName="email"
                 (blur)="updateInvalidEmail()"
             >
@@ -14,14 +14,14 @@
             <input 
                 type="password"
                 matInput
-                placeholder="Your password"
+                placeholder="{{'enterPwd' | translate}}"
                 formControlName="password"
                 autocomplete="new-password"
             >
-            <mat-error>Invalid password</mat-error>
+            <mat-error>{{ 'invalidPwd' | translate }}</mat-error>
         </mat-form-field>
         <button type="submit" mat-raised-button [disabled]="loginForm.invalid" class="submit-button" color="secondary">
-            Login
+            {{ 'login' | translate }}
         </button>
     </form>
 </section>

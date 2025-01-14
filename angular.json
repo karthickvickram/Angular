@@ -124,6 +124,11 @@
               {
                 "glob": "**/*",
                 "input": "projects/material/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/assets/",
+                "output": "assets"
               }
             ],
             "styles": [

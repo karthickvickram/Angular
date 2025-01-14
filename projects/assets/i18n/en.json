@@ -1,0 +1,8 @@
+{
+    "login": "Login",
+    "enterPwd": "Enter your password",
+    "enterEmail": "Enter your email",
+    "correctEmail": "Please enter your email",
+    "validEmail": "Please enter a valid email",
+    "invalidPwd": "Invalid Password"
+}
