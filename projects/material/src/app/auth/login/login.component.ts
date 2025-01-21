@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
   public invalidEmailMsg = signal('');
 
   constructor(public translateService: TranslateService) {
-    this.translateService.use('ta');
+    // this.translateService.use('ta');
   }
 
   ngOnInit(): void {
