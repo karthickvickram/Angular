@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { MaterialModule } from './material.module';
-import { HeaderComponent } from './welcome/navigation/header/header.component';
-import { SidenavListComponent } from './welcome/navigation/sidenav-list/sidenav-list.component';
+import { HeaderComponent } from './navigation/header/header.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 @Component({
   selector: 'app-root-material',
