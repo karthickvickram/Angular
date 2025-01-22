@@ -7,5 +7,7 @@
     "invalidPwd": "Invalid Password",
     "signup": "Signup",
     "training": "Training",
-    "logout": "Logout"
+    "logout": "Logout",
+    "newExercise": "New exercise",
+    "pastExercises": "Past exercises"
 }

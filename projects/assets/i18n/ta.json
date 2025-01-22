@@ -7,5 +7,7 @@
   "invalidPwd": "தவறான கடவுச்சொல்",
   "signup": "பதிவு",
   "training": "பயிற்சி",
-  "logout": "வெளியேறு"
+  "logout": "வெளியேறு",
+  "newExercise": "புதிய உடற்பயிற்சி",
+  "pastExercises": "கடந்த கால பயிற்சிகள்"
 }
