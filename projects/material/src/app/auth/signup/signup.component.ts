@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -19,7 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class SignupComponent implements OnInit, OnDestroy {
 
-  constructor() {
+  constructor(private authService: AuthService) {
 
   }
 
@@ -32,6 +33,12 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm) {
     console.log(form);
+    this.authService.registerUser(
+      {
+        email: form.value['email'],
+        password: form.value.password
+      }
+    )
   }
 
   ngOnDestroy(): void {

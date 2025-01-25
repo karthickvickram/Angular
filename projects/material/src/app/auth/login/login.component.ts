@@ -4,6 +4,7 @@ import { MaterialModule } from '../../material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { merge, Subject, takeUntil } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,10 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
   private destroyed$:Subject<number> = new Subject<number>();
   public invalidEmailMsg = signal('');
 
-  constructor(public translateService: TranslateService) {
+  constructor(
+    public translateService: TranslateService,
+    private authService: AuthService
+  ) {
     // this.translateService.use('ta');
   }
 
@@ -60,7 +64,13 @@ export class LoginComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.loginForm)
+    console.log(this.loginForm);
+    this.authService.login(
+      {
+        email: this.loginForm.value['email'],
+        password: this.loginForm.value.password
+      }
+    )
   }
 
   ngOnDestroy(): void {
