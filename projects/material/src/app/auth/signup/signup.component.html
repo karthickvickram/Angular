@@ -4,7 +4,7 @@
             <input 
                 type="email" 
                 matInput 
-                placeholder="Your email" 
+                placeholder="{{ 'yourEmail' | translate }}" 
                 ngModel 
                 name="email"
                 email
@@ -13,18 +13,18 @@
                 #emailInput="ngModel"
             >
             @if (emailInput.hasError('required')) {
-                <mat-error>Email is invalid</mat-error>
+                <mat-error>{{ 'InvalidEmail' | translate }}</mat-error>
             } @else if (emailInput.value == '') { 
-                <mat-error>Field must not be empty</mat-error>
+                <mat-error>{{ 'EmptyField' | translate }}</mat-error>
             } @else { 
-                <mat-error>Email must be valid</mat-error>
+                <mat-error>{{ 'EnterValidMail' | translate }}</mat-error>
             }
         </mat-form-field>
-        <mat-form-field hintLabel="Should be atleast 6 characters long." align="start">
+        <mat-form-field hintLabel="{{ 'SixCharacters' | translate }}" align="start">
             <input 
                 type="password" 
                 matInput 
-                placeholder="Your password" 
+                placeholder="{{'yourPwd' | translate}}" 
                 ngModel 
                 name="password"
                 required
@@ -37,7 +37,7 @@
         <mat-form-field class="date-picker">
             <input 
                 matInput 
-                placeholder="Your birthday" 
+                placeholder="{{ 'yourBirthDay' | translate}}" 
                 autocomplete="off" 
                 [matDatepicker]="picker"
                 [max]="maxDate"
@@ -48,8 +48,8 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-checkbox ngModel name="agree" required color="secondary">
-            Agree to Terms and Conditions
+            {{ 'AgreeToTC' | translate }}
         </mat-checkbox>
-        <button mat-flat-button type="submit" class="submit-button" [disabled]="form.invalid">Submit</button>
+        <button mat-flat-button type="submit" class="submit-button" [disabled]="form.invalid">{{ 'submit' | translate}}</button>
     </form>
 </section>

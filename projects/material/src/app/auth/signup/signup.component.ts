@@ -3,11 +3,12 @@ import { MaterialModule } from '../../material.module';
 import { FormsModule, NgForm } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [MaterialModule, FormsModule],
+  imports: [MaterialModule, FormsModule, TranslateModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
   providers: [
