@@ -1,9 +1,12 @@
-<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-    <mat-tab label="{{ 'newExercise' | translate}}">
-        <app-new-training></app-new-training>
-    </mat-tab>
-    <mat-tab label="{{ 'pastExercises' | translate}}">
-        <app-past-training></app-past-training>
-    </mat-tab>
-  </mat-tab-group>
-  
+@if (ongoingTraining) {
+    <app-current-training (trainingExit)="ongoingTraining = false"></app-current-training>
+} @else {
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+        <mat-tab label="{{ 'newExercise' | translate}}">
+            <app-new-training (trainingStart)="ongoingTraining = true"></app-new-training>
+        </mat-tab>
+        <mat-tab label="{{ 'pastExercises' | translate}}">
+            <app-past-training></app-past-training>
+        </mat-tab>
+    </mat-tab-group>   
+}

@@ -1,1 +1,20 @@
-<p>new-training works!</p>
+<section class="new-training">
+    <mat-card appearance="outlined">
+        <mat-card-title align="center">
+            This is a new-training
+        </mat-card-title>
+        <mat-card-content  align="center">
+            <mat-form-field>
+                <mat-select placeholder="ABC">
+                    <mat-option value="crunches">Crunches</mat-option>
+                    <mat-option value="touchToes">Touch Toes</mat-option>
+                    <mat-option value="skipping">Skipping</mat-option>
+                    <mat-option value="pushUps">Push Ups</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button type="submit" mat-button (click)="onStartTraining()">{{ 'start' | translate }}</button>
+        </mat-card-actions>
+    </mat-card>
+</section>

@@ -18,5 +18,9 @@
     "training": "Training",
     "logout": "Logout",
     "newExercise": "New exercise",
-    "pastExercises": "Past exercises"
+    "pastExercises": "Past exercises",
+    "yes": "Yes",
+    "no": "No",
+    "start": "Start",
+    "stop": "Stop"
 }

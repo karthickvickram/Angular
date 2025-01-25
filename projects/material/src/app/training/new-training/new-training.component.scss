@@ -1,0 +1,10 @@
+:host {
+    .new-training {
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+        mat-card {
+            width: 400px;
+        }
+    }
+}
