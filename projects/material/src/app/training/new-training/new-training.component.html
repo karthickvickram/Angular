@@ -1,21 +1,23 @@
 <section class="new-training">
-    <mat-card appearance="outlined">
-        <mat-card-title align="center">
-            This is a new-training
-        </mat-card-title>
-        <mat-card-content  align="center">
-            <mat-form-field>
-                <mat-select placeholder="trainings">
-                    @for (training of trainings; track training.id) {
-                        <mat-option [value]="training.id">
-                            {{ training.name }}
-                        </mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions align="end">
-            <button type="submit" mat-button (click)="onStartTraining()">{{ 'start' | translate }}</button>
-        </mat-card-actions>
-    </mat-card>
+    <form (ngSubmit)="onStartTraining(form)" #form="ngForm">
+        <mat-card appearance="outlined">
+            <mat-card-title align="center">
+                This is a new-training
+            </mat-card-title>
+            <mat-card-content  align="center">
+                <mat-form-field appearance="outline">
+                    <mat-select placeholder="Choose exercise" name="exercise" ngModel required>
+                        @for (training of trainings; track training.id) {
+                            <mat-option [value]="training.id">
+                                {{ training.name }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button type="submit" mat-button [disabled]="form.invalid">{{ 'start' | translate }}</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
 </section>

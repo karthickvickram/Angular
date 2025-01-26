@@ -1,22 +1,23 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../material.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { TrainingService } from '../training.service';
 import { Exercise } from '../exercise.model';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-new-training',
   standalone: true,
   imports: [
     MaterialModule,
-    TranslateModule
+    TranslateModule,
+    FormsModule
   ],
   templateUrl: './new-training.component.html',
   styleUrl: './new-training.component.scss'
 })
 export class NewTrainingComponent implements OnInit{
 
-  @Output() trainingStart = new EventEmitter<void>();
   trainings: Exercise[] = [];
 
   constructor(public trainingService: TrainingService) {
@@ -27,7 +28,7 @@ export class NewTrainingComponent implements OnInit{
     this.trainings = this.trainingService.getAvailableServices();
   }
 
-  onStartTraining() {
-    this.trainingStart.emit();
+  onStartTraining(form: NgForm) {
+    this.trainingService.startExercise(form.value.exercise);
   }
 }
