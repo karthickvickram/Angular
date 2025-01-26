@@ -6,6 +6,7 @@ import {
 
 import { StopTrainingComponent } from './StopTraining/StopTraining.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { TrainingService } from '../training.service';
 
 @Component({
   selector: 'app-current-training',
@@ -23,21 +24,29 @@ export class CurrentTrainingComponent implements OnInit {
   public timer!: number;
   @Output() trainingExit = new EventEmitter<void>();
 
-  constructor(private dialog: MatDialog) {
+  constructor(
+    private dialog: MatDialog,
+    private trainingService: TrainingService
+  ) {
 
   }
 
   ngOnInit(): void {
-    this.startOrResumeTimer();  
+    this.startOrResumeTimer();
   }
 
   startOrResumeTimer() {
+    const runningExercise = this.trainingService.getRunningExercise();
+    var step = 100;
+    if (runningExercise && runningExercise.duration) {
+      step = runningExercise.duration / 100 * 1000; 
+    }
     this.timer = setInterval(() => {
-      this.progress += 5;
+      this.progress += 1;
       if (this.progress >= 100) {
         clearInterval(this.timer);
       }
-    }, 100);
+    }, step);
   }
 
   onStop() {
