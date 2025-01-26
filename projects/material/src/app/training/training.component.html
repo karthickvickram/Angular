@@ -1,5 +1,5 @@
 @if (ongoingTraining) {
-    <app-current-training (trainingExit)="ongoingTraining = false"></app-current-training>
+    <app-current-training></app-current-training>
 } @else {
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
         <mat-tab label="{{ 'newExercise' | translate}}">
