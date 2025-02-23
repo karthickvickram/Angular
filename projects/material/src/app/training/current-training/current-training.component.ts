@@ -21,7 +21,7 @@ import { TrainingService } from '../training.service';
 export class CurrentTrainingComponent implements OnInit {
 
   public progress = 0;
-  public timer!: number;
+  public timer!: ReturnType<typeof setInterval>;
 
   constructor(
     private dialog: MatDialog,
