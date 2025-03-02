@@ -7,14 +7,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [ReactiveFormsModule, MaterialModule, TranslateModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-  providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
-  ]
+    selector: 'app-login',
+    imports: [ReactiveFormsModule, MaterialModule, TranslateModule],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
+    providers: [
+        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }
+    ]
 })
 export class LoginComponent implements OnInit, OnChanges, OnDestroy {
 

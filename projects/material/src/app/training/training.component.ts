@@ -8,17 +8,16 @@ import { TrainingService } from './training.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'app-training',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    TranslateModule,
-    NewTrainingComponent,
-    PastTrainingComponent,
-    CurrentTrainingComponent
-  ],
-  templateUrl: './training.component.html',
-  styleUrl: './training.component.scss'
+    selector: 'app-training',
+    imports: [
+        MaterialModule,
+        TranslateModule,
+        NewTrainingComponent,
+        PastTrainingComponent,
+        CurrentTrainingComponent
+    ],
+    templateUrl: './training.component.html',
+    styleUrl: './training.component.scss'
 })
 export class TrainingComponent implements OnInit, OnDestroy {
 

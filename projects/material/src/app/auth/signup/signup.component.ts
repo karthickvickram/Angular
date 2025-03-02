@@ -7,16 +7,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-signup',
-  standalone: true,
-  imports: [MaterialModule, FormsModule, TranslateModule],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss',
-  providers: [
-    provideNativeDateAdapter(),
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
-  ],
-  encapsulation: ViewEncapsulation.Emulated
+    selector: 'app-signup',
+    imports: [MaterialModule, FormsModule, TranslateModule],
+    templateUrl: './signup.component.html',
+    styleUrl: './signup.component.scss',
+    providers: [
+        provideNativeDateAdapter(),
+        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }
+    ],
+    encapsulation: ViewEncapsulation.Emulated
 })
 export class SignupComponent implements OnInit, OnDestroy {
 

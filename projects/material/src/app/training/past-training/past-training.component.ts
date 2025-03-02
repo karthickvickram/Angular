@@ -8,15 +8,14 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-past-training',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    DatePipe,
-    DecimalPipe
-  ],
-  templateUrl: './past-training.component.html',
-  styleUrl: './past-training.component.scss'
+    selector: 'app-past-training',
+    imports: [
+        MaterialModule,
+        DatePipe,
+        DecimalPipe
+    ],
+    templateUrl: './past-training.component.html',
+    styleUrl: './past-training.component.scss'
 })
 export class PastTrainingComponent implements OnInit, AfterViewInit{
 

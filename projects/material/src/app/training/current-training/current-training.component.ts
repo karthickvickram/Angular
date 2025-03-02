@@ -9,14 +9,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TrainingService } from '../training.service';
 
 @Component({
-  selector: 'app-current-training',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    TranslateModule
-  ],
-  templateUrl: './current-training.component.html',
-  styleUrl: './current-training.component.scss'
+    selector: 'app-current-training',
+    imports: [
+        MaterialModule,
+        TranslateModule
+    ],
+    templateUrl: './current-training.component.html',
+    styleUrl: './current-training.component.scss'
 })
 export class CurrentTrainingComponent implements OnInit {
 
