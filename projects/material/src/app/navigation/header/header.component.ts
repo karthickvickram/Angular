@@ -6,14 +6,15 @@ import { AuthService } from '../../auth/auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css'],
-    imports: [
-        MaterialModule,
-        TranslateModule,
-        RouterLink
-    ]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    TranslateModule,
+    RouterLink
+  ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 

@@ -4,13 +4,14 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-StopTraining',
-    templateUrl: './StopTraining.component.html',
-    styleUrls: ['./StopTraining.component.css'],
-    imports: [
-        MaterialModule,
-        TranslateModule
-    ]
+  selector: 'app-StopTraining',
+  templateUrl: './StopTraining.component.html',
+  styleUrls: ['./StopTraining.component.css'],
+  standalone: true,
+  imports: [
+    MaterialModule,
+    TranslateModule
+  ]
 })
 export class StopTrainingComponent implements OnInit {
 

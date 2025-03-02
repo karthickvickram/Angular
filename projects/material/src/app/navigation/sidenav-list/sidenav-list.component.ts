@@ -7,15 +7,16 @@ import { CommonModule } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'app-sidenav-list',
-    templateUrl: './sidenav-list.component.html',
-    styleUrls: ['./sidenav-list.component.css'],
-    imports: [
-        MaterialModule,
-        RouterLink,
-        TranslateModule,
-        CommonModule
-    ]
+  selector: 'app-sidenav-list',
+  templateUrl: './sidenav-list.component.html',
+  styleUrls: ['./sidenav-list.component.css'],
+  standalone: true,
+  imports: [
+    MaterialModule, 
+    RouterLink,
+    TranslateModule,
+    CommonModule
+  ]
 })
 export class SidenavListComponent implements OnInit, OnDestroy {
 
