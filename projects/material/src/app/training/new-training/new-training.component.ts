@@ -6,15 +6,14 @@ import { Exercise } from '../exercise.model';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-new-training',
-  standalone: true,
-  imports: [
-    MaterialModule,
-    TranslateModule,
-    FormsModule
-  ],
-  templateUrl: './new-training.component.html',
-  styleUrl: './new-training.component.scss'
+    selector: 'app-new-training',
+    imports: [
+        MaterialModule,
+        TranslateModule,
+        FormsModule
+    ],
+    templateUrl: './new-training.component.html',
+    styleUrl: './new-training.component.scss'
 })
 export class NewTrainingComponent implements OnInit{
 
