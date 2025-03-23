@@ -1,0 +1,24 @@
+:host {
+    display: block;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    box-sizing: border-box;
+    .app-root-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+        
+        .header {
+            height: 8vh;
+            display: flex;
+    
+            .entry-button {
+                margin-left: auto;
+            }
+        }
+    }
+}

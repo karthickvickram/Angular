@@ -1,0 +1,22 @@
+<div class="fuel-imports-container">
+    <div class="fuel-imports-header">
+        Record Entry
+    </div>
+    <div class="fuel-import-content">
+        <form [formGroup]="fuelForm">
+
+            <input id="date" type="date" formControlName="date" />
+
+            <input id="odometer" type="number" formControlName="odometer" />
+
+            <input id="price" type="number" formControlName="cost" />
+
+            <input id="quantity" type="number" formControlName="quantity" />
+
+        </form>
+    </div>
+    <div class="fuel-import-footer">
+        <button type="submit" mat-raised-button [disabled]="fuelForm.invalid" (click)="onSubmit()">Submit</button>
+        <button mat-raised-button (click)="onClear()">Clear</button>
+    </div>
+</div>

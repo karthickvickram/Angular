@@ -1,0 +1,39 @@
+:host {
+    .fuel-imports-container {
+        height: 100%;
+        width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+        
+        .fuel-imports-header {
+            flex: 1;
+            color: lightcoral;
+            font-weight: bold;
+
+            display: flex;
+            justify-content: center;
+        }
+
+        .fuel-import-content {
+            flex: 6;
+            margin: 1rem 0.5rem;
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        .fuel-import-footer {
+            flex: 1;
+
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 1rem;
+        }
+    }
+}
