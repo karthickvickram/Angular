@@ -229,7 +229,8 @@
               }
             ],
             "styles": [
-              "projects/fuel-tracker/src/styles.scss"
+              "projects/fuel-tracker/src/styles.scss",
+              "primeicons/primeicons.css"
             ],
             "scripts": [],
             "server": "projects/fuel-tracker/src/main.server.ts",
