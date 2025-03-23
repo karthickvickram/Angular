@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FuelEntryComponent } from './fuel-entry/fuel-entry.component';
-import { MatButtonModule } from '@angular/material/button';
+import { ButtonModule } from 'primeng/button';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root-fuel-tracker',
   imports: [
     RouterOutlet,
-    MatButtonModule
+    ButtonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -26,7 +26,8 @@ export class AppComponent implements OnInit{
   openFuelEntry() {
     const dialogRef = this.dialog.open(FuelEntryComponent, {
       height: '90vh',
-      width: '60vw'
+      width: '60vw',
+      disableClose: true
     })
 
     dialogRef.afterClosed().subscribe({
