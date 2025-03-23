@@ -1,22 +1,66 @@
 <div class="fuel-imports-container">
-    <div class="fuel-imports-header">
-        Record Entry
+    <div class="header">
+        <span class="header-title">Record Entry</span>
+        <p-button class="header-icon" (click)="onClose()" icon="pi pi-times" size="small" severity="danger">
+        </p-button>
     </div>
-    <div class="fuel-import-content">
-        <form [formGroup]="fuelForm">
+    <form [formGroup]="fuelForm" class="content">
 
-            <input id="date" type="date" formControlName="date" />
+        <p-floatlabel variant="on">
+            <p-datepicker formControlName="date" 
+                inputId="date" 
+                dateFormat="dd-M-yy"
+                [showIcon]="true" 
+                iconDisplay="input" 
+            />
+            <label for="date">Enter Dates</label>
+        </p-floatlabel>
 
-            <input id="odometer" type="number" formControlName="odometer" />
+        <p-floatlabel variant="on">
+            <p-inputnumber formControlName="odometer" 
+            inputId="odometer" 
+            mode="decimal" 
+            [maxFractionDigits]="2"
+        />
+            <label for="odometer">Current Odometer</label>
+        </p-floatlabel>
 
-            <input id="price" type="number" formControlName="cost" />
+        <p-float-label variant="on">
+            <p-input-number formControlName="cost"
+                inputId="currency" 
+                mode="currency"
+                currency="INR" 
+                currencyDisplay="code" 
+                locale="en-IN"
+            />
+            <label for="currency">Price</label>
+        </p-float-label>
 
-            <input id="quantity" type="number" formControlName="quantity" />
+        <p-float-label variant="on">
+            <p-input-number formControlName="quantity"
+                inputId="liter" 
+                mode="decimal"
+                [maxFractionDigits]="2"
+            />
+            <label for="liter">Quantity</label>
+        </p-float-label>
 
-        </form>
-    </div>
-    <div class="fuel-import-footer">
-        <button type="submit" mat-raised-button [disabled]="fuelForm.invalid" (click)="onSubmit()">Submit</button>
-        <button mat-raised-button (click)="onClear()">Clear</button>
+    </form>
+    <div class="footer">
+        <p-button 
+            class="footer-submit" 
+            (click)="onSubmit()" 
+            [raised]="true"
+            severity="success" 
+            label="Submit"
+            [disabled]="fuelForm.invalid"
+        />
+        <p-button 
+            class="footer-submit" 
+            (click)="onClear()" 
+            [raised]="true"
+            severity="secondary" 
+            label="Clear"
+        />
     </div>
 </div>

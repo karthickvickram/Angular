@@ -25,7 +25,7 @@ export class AppComponent implements OnInit{
 
   openFuelEntry() {
     const dialogRef = this.dialog.open(FuelEntryComponent, {
-      height: '90vh',
+      height: '75vh',
       width: '60vw',
       disableClose: true
     })

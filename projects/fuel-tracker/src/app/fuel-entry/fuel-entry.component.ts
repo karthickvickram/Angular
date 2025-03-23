@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ButtonModule } from 'primeng/button';
+import { DatePickerModule } from 'primeng/datepicker';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-fuel-fuel-entry',
   imports: [
     ReactiveFormsModule,
-    MatButtonModule,
+    ButtonModule,
+    DatePickerModule,
+    InputNumberModule,
+    FloatLabelModule
   ],
   templateUrl: './fuel-entry.component.html',
   styleUrl: './fuel-entry.component.scss'
@@ -15,7 +22,10 @@ export class FuelEntryComponent implements OnInit {
 
   fuelForm!: FormGroup
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<FuelEntryComponent>
+  ) {
     this.fuelForm = this.formBuilder.group({
       'date': ['', Validators.required],
       'odometer': ['', Validators.required],
@@ -25,7 +35,7 @@ export class FuelEntryComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.onClear()
   }
 
   onSubmit() {
@@ -36,5 +46,9 @@ export class FuelEntryComponent implements OnInit {
 
   onClear() {
     this.fuelForm.reset();
+  }
+
+  onClose() {
+    this.dialogRef.close();
   }
 }
