@@ -229,6 +229,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "projects/fuel-tracker/src/styles.scss"
             ],
             "scripts": [],
