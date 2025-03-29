@@ -25,16 +25,15 @@ export class AppComponent implements OnInit{
 
   openFuelEntry() {
     const dialogRef = this.dialog.open(FuelEntryComponent, {
-      height: '85vh',
+      height: '75vh',
       width: '60vw',
       disableClose: true
     })
 
     dialogRef.afterClosed().subscribe({
-      next: (value) => {
+      next(value) {
         console.log(value);
-      }, 
-      error: (err) => {
+      }, error(err) {
         console.log(err);
       }
     })
