@@ -13,15 +13,7 @@ import Aura from '@primeng/themes/aura';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-const firebaseConfig = {
-  apiKey: "AIzaSyAvUOO0NnnNrmHQeBeqtMKJ1-hdvZzFa6M",
-  authDomain: "fueltracker-6567f.firebaseapp.com",
-  projectId: "fueltracker-6567f",
-  storageBucket: "fueltracker-6567f.firebasestorage.app",
-  messagingSenderId: "639722339182",
-  appId: "1:639722339182:web:8c185034a26f47cf5a5f7f",
-  measurementId: "G-V39QZ4R8T8"
-};
+
 
 
 export const appConfig: ApplicationConfig = {
