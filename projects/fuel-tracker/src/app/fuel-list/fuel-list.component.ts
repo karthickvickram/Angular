@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FuelService } from '../services/fuelService';
 import { TableModule } from 'primeng/table';
-import { Observable } from 'rxjs';
 import { FuelDisplay, FuelEntry } from '../Model/Fuel';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
