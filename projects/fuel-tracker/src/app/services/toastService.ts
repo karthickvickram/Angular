@@ -10,18 +10,13 @@ export class ToastService {
 
     readonly toast$ = this.toastSignal.asReadonly();
     
-    show(severity: 'success' | 'info' | 'warn' | 'error', summary: string, detail: string, key?: string, life?: number) {
+    show(severity: 'success' | 'info' | 'warn' | 'error', summary: string, detail: string, life?: number) {
         const toast: ToastModel = {
             severity,
             summary,
             detail,
-            key,
             life
         };
         this.toastSignal.update(msgs => [...msgs, toast]);
-    }
-
-    clear() {
-        this.toastSignal.set([]);
     }
 }

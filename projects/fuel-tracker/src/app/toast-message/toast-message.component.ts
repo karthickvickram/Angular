@@ -24,10 +24,6 @@ export class ToastMessageComponent {
         this.messageService.add(toast);
       })
 
-      if (toasts.length > 0) {
-        setTimeout(() => this.toastService.clear(), 3000);
-      }
-
     })
   }
 
