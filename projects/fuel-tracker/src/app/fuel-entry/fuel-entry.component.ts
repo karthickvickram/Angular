@@ -5,6 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { FuelEntry } from '../Model/fuelEntry';
+import { FuelService } from '../services/fuelService';
 
 @Component({
   selector: 'app-fuel-fuel-entry',
@@ -24,7 +26,8 @@ export class FuelEntryComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<FuelEntryComponent>
+    private dialogRef: MatDialogRef<FuelEntryComponent>,
+    private fuelService: FuelService
   ) {
     this.fuelForm = this.formBuilder.group({
       'date': ['', Validators.required],
@@ -40,7 +43,22 @@ export class FuelEntryComponent implements OnInit {
 
   onSubmit() {
     if (this.fuelForm.valid) {
-      console.log(this.fuelForm.value)
+      console.log(this.fuelForm.value);
+      const newEntry: FuelEntry = {
+        date: this.fuelForm.value.date,
+        odometer: this.fuelForm.value.odometer,
+        amount: this.fuelForm.value.cost,
+        liter: this.fuelForm.value.quantity
+      }
+
+      this.fuelService.addFuelEntry(newEntry).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
     }
   }
 
