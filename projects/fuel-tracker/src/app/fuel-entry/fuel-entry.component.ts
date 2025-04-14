@@ -7,6 +7,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { FuelEntry } from '../Model/fuelEntry';
 import { FuelService } from '../services/fuelService';
+import { ToastService } from '../services/toastService';
 
 @Component({
   selector: 'app-fuel-fuel-entry',
@@ -27,7 +28,8 @@ export class FuelEntryComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<FuelEntryComponent>,
-    private fuelService: FuelService
+    private fuelService: FuelService,
+    private toastService: ToastService
   ) {
     this.fuelForm = this.formBuilder.group({
       'date': ['', Validators.required],
@@ -43,7 +45,6 @@ export class FuelEntryComponent implements OnInit {
 
   onSubmit() {
     if (this.fuelForm.valid) {
-      console.log(this.fuelForm.value);
       const newEntry: FuelEntry = {
         date: this.fuelForm.value.date,
         odometer: this.fuelForm.value.odometer,
@@ -54,9 +55,13 @@ export class FuelEntryComponent implements OnInit {
       this.fuelService.addFuelEntry(newEntry).subscribe({
         next: (res) => {
           console.log(res);
+          this.toastService.show('success', 'Success', 'Fuel entry added successfully!');
+          this.dialogRef.close(true);
         },
         error: (err) => {
           console.log(err);
+          this.toastService.show('error', 'Error', 'Failed to add fuel entry!');
+          this.dialogRef.close(false);
         }
       })
     }
