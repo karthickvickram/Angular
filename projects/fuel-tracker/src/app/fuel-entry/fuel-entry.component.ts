@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { FuelEntry } from '../Model/fuelEntry';
+import { FuelEntry } from '../Model/Fuel';
 import { FuelService } from '../services/fuelService';
 import { ToastService } from '../services/toastService';
 
@@ -23,13 +23,14 @@ import { ToastService } from '../services/toastService';
 })
 export class FuelEntryComponent implements OnInit {
 
-  fuelForm!: FormGroup
+  fuelForm!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<FuelEntryComponent>,
     private fuelService: FuelService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    @Inject(MAT_DIALOG_DATA) public editEntry: FuelEntry | null 
   ) {
     this.fuelForm = this.formBuilder.group({
       'date': ['', Validators.required],
@@ -40,7 +41,16 @@ export class FuelEntryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.onClear()
+    if (this.editEntry) {
+      this.fuelForm.patchValue({
+        date: new Date(this.editEntry.date),
+        odometer: this.editEntry.odometer,
+        cost: this.editEntry.amount,
+        quantity: this.editEntry.liter
+      });
+    } else {
+      this.onClear();
+    }
   }
 
   onSubmit() {
@@ -52,18 +62,36 @@ export class FuelEntryComponent implements OnInit {
         liter: this.fuelForm.value.quantity
       }
 
-      this.fuelService.addFuelEntry(newEntry).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.toastService.show('success', 'Success', 'Fuel entry added successfully!');
-          this.dialogRef.close(true);
-        },
-        error: (err) => {
-          console.log(err);
-          this.toastService.show('error', 'Error', 'Failed to add fuel entry!');
-          this.dialogRef.close(false);
-        }
-      })
+      if (this.editEntry?.id) {
+        // Edit existing entry
+        newEntry.id = this.editEntry.id;
+        this.fuelService.updateFuelEntry(newEntry).subscribe({
+          next: (res) => {
+            console.log('Fuel Entry updated in firestore');
+            this.dialogRef.close(true);
+            this.toastService.show('success', 'Success', 'Fuel entry updated successfully!');
+          }, 
+          error: (err) => {
+            console.log(err);
+            this.dialogRef.close(false);
+            this.toastService.show('error', 'Error', 'Failed to update fuel entry!');
+          }
+        })
+      } else {
+        // Create a new entry
+        this.fuelService.addFuelEntry(newEntry).subscribe({
+          next: (res) => {
+            console.log('Fuel Entry saved in firestore');
+            this.toastService.show('success', 'Success', 'Fuel entry added successfully!');
+            this.dialogRef.close(true);
+          },
+          error: (err) => {
+            console.log(err);
+            this.toastService.show('error', 'Error', 'Failed to add fuel entry!');
+            this.dialogRef.close(false);
+          }
+        })
+      }
     }
   }
 

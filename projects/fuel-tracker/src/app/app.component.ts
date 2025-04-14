@@ -4,13 +4,15 @@ import { FuelEntryComponent } from './fuel-entry/fuel-entry.component';
 import { ButtonModule } from 'primeng/button';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
+import { FuelListComponent } from './fuel-list/fuel-list.component';
 
 @Component({
   selector: 'app-root-fuel-tracker',
   imports: [
     RouterOutlet,
     ButtonModule,
-    ToastMessageComponent
+    ToastMessageComponent,
+    FuelListComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

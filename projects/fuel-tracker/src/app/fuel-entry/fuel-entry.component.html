@@ -52,7 +52,7 @@
             (click)="onSubmit()" 
             [raised]="true"
             severity="success" 
-            label="Submit"
+            label="{{ editEntry ? 'Update': 'Submit'}}"
             [disabled]="fuelForm.invalid"
         />
         <p-button 
