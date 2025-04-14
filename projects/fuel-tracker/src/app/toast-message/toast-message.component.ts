@@ -22,6 +22,7 @@ export class ToastMessageComponent {
 
       toasts.forEach(toast => {
         this.messageService.add(toast);
+        this.toastService.remove(toast);
       })
 
     })

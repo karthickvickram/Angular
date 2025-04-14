@@ -19,4 +19,8 @@ export class ToastService {
         };
         this.toastSignal.update(msgs => [...msgs, toast]);
     }
+
+    remove(toast: ToastModel) {
+        this.toastSignal.update(msgs => msgs.filter(msg => msg !== toast));
+    }
 }

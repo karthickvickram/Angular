@@ -34,7 +34,6 @@ export class AppComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe({
       next(value) {
-        console.log(value);
       }, error(err) {
         console.log(err);
       }
