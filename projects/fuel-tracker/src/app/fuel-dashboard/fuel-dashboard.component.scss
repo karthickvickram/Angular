@@ -1,0 +1,16 @@
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+
+  p-card {
+    text-align: center;
+    font-weight: bold;
+
+    p {
+      font-size: 1.25rem;
+      margin-top: 0.5rem;
+    }
+  }
+}
