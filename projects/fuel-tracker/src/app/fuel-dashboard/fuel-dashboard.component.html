@@ -1,6 +1,10 @@
 <div class="dashboard-container">
+  <div class="header">
+    <span class="header-title">Record Entry</span>
+  </div>
+  <div class="body">
     <p-card header="Total Fuel Entries">
-      <p>{{ totalEntries }}</p>
+      <p>{{ fuelEntries.length }}</p>
     </p-card>
   
     <p-card header="Total Distance (KM)">
@@ -18,14 +22,18 @@
     <p-card header="Mileage (KM/L)">
       <p>{{ mileage | number: '1.0-2' }}</p>
     </p-card>
-
+  
     <p-card header="Fuel Economy (₹/KM)">
       <p>{{ fuelEconomy | currency: 'INR':'symbol':'1.0-2' }}</p>
     </p-card>
-
+  
     <p-card header="Fuel Consumption (L/KM)">
       <p>{{ fuelConsumption | number: '1.2-2' }}</p>
     </p-card>
-
   </div>
-  
+</div>
+
+<!-- <div class="dashboard-container2">
+  <p-chart type="line" [data]="combinedChartData" [options]="chartOptions" styleClass="dashboard-chart">
+  </p-chart>
+</div> -->

@@ -1,0 +1,21 @@
+.fuel-list-container {
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-rows: 1fr 5fr;
+
+    .header {
+        color: lightcoral;
+        font-weight: 900;
+        font-size: 2rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .body {
+        margin: 0 3rem;
+    }
+}
