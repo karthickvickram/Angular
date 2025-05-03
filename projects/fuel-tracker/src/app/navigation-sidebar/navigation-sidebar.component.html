@@ -1,0 +1,28 @@
+<div class="icon-header" (click)="removeSelectedClass()" routerLink="/" tabindex="0">Icon</div>
+<div class="navigation">
+    <div class="navigation-links">
+        <div class="nav-link" tabindex="0">
+        </div>
+        @for (menu of sideMenuList; track $index) {
+            <div 
+                (click)="updateMenuSelection(menu.id)" 
+                class="nav-link" 
+                routerLink="{{ menu.routerLink }}" 
+                [routerLinkActive]="'active-link'" 
+                [routerLinkActiveOptions]="{ exact: true }" 
+                [queryParams]="menu.queryParams"
+                tabindex="0"
+                >
+                    <span>{{ menu.menuName}}</span>
+                    <i class="{{ menu.iconClass }}"></i>
+            </div>
+        }
+        <div class="nav-link" tabindex="0">
+        </div>
+    </div>
+    <div class="empty-space" #emptySpace>
+        <ng-container *ngFor="let _ of extraDivs; let i = index; trackBy: trackByIndex">
+            <div class="nav-link"></div>
+        </ng-container>
+    </div>
+</div>

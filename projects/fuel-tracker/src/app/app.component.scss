@@ -1,5 +1,9 @@
 :host {
     --p-button-gap: 0.3rem;
+    --fuel-color-border: #575757;
+    --fuel-color-black: #000;
+    --fuel-color-white: #fff;
+    --fuel-color-primary: #a566ab;
 
     display: block;
     height: 100vh;
@@ -7,21 +11,81 @@
     overflow: hidden;
     box-sizing: border-box;
     
-    .app-root-container {
-        display: flex;
-        flex-direction: column;
+    .fuel-root-container {
         height: 100%;
         width: 100%;
-        padding: 1rem;
         box-sizing: border-box;
+        border: 1rem solid var(--fuel-color-border);
+        border-radius: 1rem;
+        background-color: var(--fuel-color-border);
+
         
-        .header {
-            height: 8vh;
+    }
+    .root-container{
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: var(--fuel-color-black);
+            border-radius: 2rem;
             display: flex;
-    
-            .entry-button {
-                margin-left: auto;
+
+            .sidebar{
+                width: 8rem;
+                color: var(--fuel-color-primary);
+                margin: 1rem 0 1rem 1rem;
+                display: flex;
+                flex-direction: column;
             }
+            .main {
+                width: 100%;
+                border: 1rem solid var(--fuel-color-black);
+                border-radius: 2rem;
+                border-left: none;
+                background-color: var(--fuel-color-white);
+            }
+        }
+}
+.parent1 {
+    width: 15rem;
+    display: flex;
+
+    .playground {
+        margin: 1rem;
+        margin-right: 0;
+        width: 6rem;
+        display: grid;
+        grid-template-columns: 6rem;
+        grid-template-rows: 3rem 3rem 3rem;
+    
+        color: #a566ab;
+        background: black;
+        .selected {
+            background: white;
+            border-top-left-radius: 1.5rem;
+            border-bottom-left-radius: 1.5rem;
+        }
+    }
+    .playground2 {
+        margin: 1rem;
+        width: 6rem;
+        margin-left: 0;
+        display: grid;
+        grid-template-columns: 6rem;
+        grid-template-rows: 3rem 3rem 3rem;
+        
+        color: #a566ab;
+        background-color: white;
+        .link:not(.selected) {
+            background: black;
+        }
+        .link:has(+ .selected) {
+            border-bottom-right-radius: 1.5rem;
+        }
+        .selected {
+            background: white;
+        }
+        .selected + div {
+            border-top-right-radius: 1.5rem;
         }
     }
 }

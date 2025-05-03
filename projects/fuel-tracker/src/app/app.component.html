@@ -1,15 +1,13 @@
-
-<app-fuel-toast-message></app-fuel-toast-message>
-<div class="app-root-container">
-    <div class="header">
-        <p-button class="entry-button" (click)="openFuelEntry()" severity="info" [raised]="true" [rounded]="true"
-            label="Entry">
-            <ng-template pTemplate="icon">
-                <span class="material-icons">local_gas_station</span>
-            </ng-template>
-        </p-button>
+<div class="fuel-root-container">
+    <div class="root-container">
+        <div class="sidebar">
+            <!-- Navigation -->
+            <app-navigation-sidebar></app-navigation-sidebar>
+        </div>
+        <div class="main">
+            <!-- Dashboard -->
+            <app-fuel-toast-message></app-fuel-toast-message>
+            <router-outlet />
+        </div>
     </div>
-    <!-- <app-fuel-fuel-list></app-fuel-fuel-list> -->
-    <app-fuel-fuel-dashboard></app-fuel-fuel-dashboard>
-    <router-outlet />
 </div>

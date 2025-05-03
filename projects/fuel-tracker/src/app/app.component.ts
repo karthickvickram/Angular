@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { FuelEntryComponent } from './fuel-entry/fuel-entry.component';
-import { ButtonModule } from 'primeng/button';
-import { MatDialog } from '@angular/material/dialog';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
-import { FuelListComponent } from './fuel-list/fuel-list.component';
-import { FuelDashboardComponent } from './fuel-dashboard/fuel-dashboard.component';
+import { NavigationSidebarComponent } from './navigation-sidebar/navigation-sidebar.component';
+import { FuelService } from './services/fuelService';
 
 @Component({
   selector: 'app-root-fuel-tracker',
   imports: [
     RouterOutlet,
-    ButtonModule,
+    RouterModule,
+    NavigationSidebarComponent,
     ToastMessageComponent,
-    // FuelListComponent,
-    FuelDashboardComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -22,26 +18,23 @@ import { FuelDashboardComponent } from './fuel-dashboard/fuel-dashboard.componen
 export class AppComponent implements OnInit{
   title = 'fuel-tracker';
 
-  constructor(private dialog: MatDialog) {
+  constructor(private fuelService: FuelService) {
 
   }
+  
   ngOnInit(): void {
-    
-  }
-
-  openFuelEntry() {
-    const dialogRef = this.dialog.open(FuelEntryComponent, {
-      height: '75vh',
-      width: '60vw',
-      disableClose: true
-    })
-
-    dialogRef.afterClosed().subscribe({
-      next(value) {
-      }, error(err) {
-        console.log(err);
+    this.fuelService.getFuelEntries().subscribe({
+      next: (entries) => {
+        const sortedEntries = entries.sort((a, b) => {
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+        this.fuelService.storeFuelEntries(sortedEntries);
+      },
+      error: (error) => {
+        console.error('Error fetching fuel entries:', error);
+        this.fuelService.storeFuelEntries([]);
       }
     })
-
   }
+
 }
