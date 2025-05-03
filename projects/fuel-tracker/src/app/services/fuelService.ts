@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, DocumentReference, collectionData, query, orderBy, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { FuelEntry } from '../Model/Fuel';
-import { catchError, from, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, from, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,9 @@ import { catchError, from, Observable, tap, throwError } from 'rxjs';
 export class FuelService {
   
   private fuelCollection;
+
+  private fuelEntries = new BehaviorSubject<FuelEntry[]>([]);
+  public fuelEntries$ = this.fuelEntries.asObservable();
   
   constructor(private firestore: Firestore) {
     this.fuelCollection = collection(this.firestore, 'fuelEntries');
@@ -44,7 +47,7 @@ export class FuelService {
     return from(
       updateDoc(docRef, updatedData)
     ).pipe(
-      tap(() => console.log('Fuel Entry ${entry.id} updated successfully')),
+      tap(() => console.log(`Fuel Entry ${entry.id} updated successfully`)),
       catchError((error) => {
         console.log('Error updating fuel entry:', error);
         return throwError(() => error);
@@ -57,8 +60,52 @@ export class FuelService {
     return from(deleteDoc(docRef));
   }
 
-  getFuelEntries(): Observable<FuelEntry[]> {
+  public getFuelEntries(): Observable<FuelEntry[]> {
     const fuelQuery = query(this.fuelCollection, orderBy('date', 'desc'));
-    return collectionData(fuelQuery, { idField: 'id' }) as Observable<FuelEntry[]>;
+    return collectionData(fuelQuery, { idField: 'id' }) as Observable<FuelEntry[]>
+  }
+
+  public storeFuelEntries(entries: FuelEntry[]) {
+    this.fuelEntries.next(entries);
+  }
+
+  public calculateDistance(currentEntry: FuelEntry, lastEntry: FuelEntry): number {
+    if (!currentEntry || !lastEntry) {
+      return 0;
+    }
+    return currentEntry.odometer - lastEntry.odometer;
+  }
+  
+  public calculateMileage(currentEntry: FuelEntry, lastEntry: FuelEntry): number {
+    if (!lastEntry || !currentEntry) {
+      return 0;
+    }
+    return this.calculateDistance(currentEntry, lastEntry) / currentEntry.liter;
+  }
+
+  public calculateCostPerLiter(entry: FuelEntry): number {
+    if (!entry || entry.liter === 0) {
+      return 0;
+    }
+    return entry.amount / entry.liter;
+  }
+  
+  public calculateCostPerKm(currentEntry: FuelEntry, lastEntry: FuelEntry): number {
+    if (!lastEntry || !currentEntry) {
+      return 0;
+    }
+    return currentEntry.amount / this.calculateDistance(currentEntry, lastEntry);
+  }
+
+  public calculateOverallMileage(entries: FuelEntry[]): number {
+    if (entries.length < 2) {
+      return 0;
+    }
+    const totalDistance = entries.reduce((sum, entry, index) => {
+      if (index === 0) return sum;
+      return sum + this.calculateDistance(entry, entries[index - 1]);
+    }, 0);
+    const totalLiters = entries.reduce((sum, entry) => sum + entry.liter, 0);
+    return totalDistance / totalLiters;
   }
 }
