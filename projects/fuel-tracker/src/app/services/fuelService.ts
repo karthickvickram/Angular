@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, DocumentReference, collectionData, query, orderBy, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { FuelEntry } from '../Model/Fuel';
-import { BehaviorSubject, catchError, from, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, from, Observable, Subject, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,9 @@ export class FuelService {
 
   private fuelEntries = new BehaviorSubject<FuelEntry[]>([]);
   public fuelEntries$ = this.fuelEntries.asObservable();
+
+  private navigationUI = new Subject<number>();
+  public navigationUI$ = this.navigationUI.asObservable();
   
   constructor(private firestore: Firestore) {
     this.fuelCollection = collection(this.firestore, 'fuelEntries');
@@ -67,6 +70,10 @@ export class FuelService {
 
   public storeFuelEntries(entries: FuelEntry[]) {
     this.fuelEntries.next(entries);
+  }
+
+  public updateNavigationUI(menuId: number) {
+    this.navigationUI.next(menuId)
   }
 
   public calculateDistance(currentEntry: FuelEntry, lastEntry: FuelEntry): number {

@@ -1,7 +1,9 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { query } from 'express';
+import { FuelService } from '../services/fuelService';
+import { sideMenuId } from '../Model/menuList';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-navigation-sidebar',
@@ -14,44 +16,49 @@ import { query } from 'express';
     CommonModule
   ]
 })
-export class NavigationSidebarComponent implements OnInit, AfterViewInit {
+export class NavigationSidebarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('emptySpace') emptySpace!: ElementRef<HTMLDivElement>;
   sideMenuList: any = [];
+  private destroyed$ = new Subject<void>();
   
-  constructor() { }
+  constructor(private fuelService: FuelService) { }
 
   ngOnInit() {
     this.sideMenuList = [
       {
-        id: 1,
+        id: sideMenuId.entry,
         menuName: 'Entry',
         routerLink: '/entry',
         iconClass: 'pi pi-gauge',
-        queryParams: { mode: 'create' }
       },
       {
-        id: 2,
+        id: sideMenuId.Log,
         menuName: 'Log',
         routerLink: '/log',
         iconClass: 'pi pi-list',
-        queryParams: {}
       },
       {
-        id: 3,
+        id: sideMenuId.Metrics,
         menuName: 'Metrics',
         routerLink: '/metrics',
         iconClass: 'pi pi-database',
-        queryParams: {}
       },
       {
-        id: 4,
+        id: sideMenuId.Dashboard,
         menuName: 'Dashboard',
         routerLink: '/dashboard',
         iconClass: 'pi pi-chart-line',
-        queryParams: {}
       }
     ]
+
+    this.fuelService.navigationUI$
+    .pipe(takeUntil(this.destroyed$))
+    .subscribe({
+      next: (res) => {
+        this.onLinkSelect(res);
+      }
+    })
   }
 
   ngAfterViewInit(): void {
@@ -84,4 +91,8 @@ export class NavigationSidebarComponent implements OnInit, AfterViewInit {
     return navLinks;
   }
 
+  ngOnDestroy() {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
 }

@@ -10,6 +10,7 @@ import { ToastService } from '../services/toastService';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { sideMenuId } from '../Model/menuList';
 
 @Component({
   selector: 'app-fuel-fuel-entry',
@@ -66,12 +67,9 @@ export class FuelEntryComponent implements OnInit, OnDestroy {
     .pipe(
       takeUntil(this.destroyed$)
     ).subscribe((params) => {
-      this.mode = params['mode'] as 'create' | 'edit' | null;
-      if (this.mode == 'create') {
-        this.onClear();
-        this.editIndex = -1;
-        this.lastIndex = this.fuelEntries.length - 1;
-      } else if (this.mode == 'edit') {
+      this.mode = params['mode'];
+      if (this.mode == 'edit') {
+        this.fuelService.updateNavigationUI(sideMenuId.entry);
         let index = this.fuelEntries.findIndex(entry => entry.id == params['id']);
         if (index == -1) {
           this.toastService.show('error', 'Error', 'Fuel entry not found!');
@@ -88,6 +86,11 @@ export class FuelEntryComponent implements OnInit, OnDestroy {
             quantity: this.fuelEntries[this.editIndex].liter
           });
         }
+      } else {
+        //Create Mode
+        this.onClear();
+        this.editIndex = -1;
+        this.lastIndex = this.fuelEntries.length - 1;
       }
     });
   }
@@ -121,7 +124,6 @@ export class FuelEntryComponent implements OnInit, OnDestroy {
       } else {
         // Create a new entry
         this.onClear();
-        console.log('before save');
         console.log(this.fuelEntries)
         this.fuelService.addFuelEntry(newEntry).subscribe({
           next: (res) => {
