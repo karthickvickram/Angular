@@ -10,10 +10,10 @@ export const routes: Routes = [
         loadComponent: () => import('./fuel-list/fuel-list.component').then(m => m.FuelListComponent) 
     },
     { 
-        path: 'chart', 
-        loadComponent: () => import('./fuel-dashboard/fuel-dashboard.component').then(m => m.FuelDashboardComponent) 
+        path: 'metrics', loadComponent: () => import('./fuel-metrics/fuel-metrics.component').then(m => m.FuelMetricsComponent) 
     },
     { 
-        path: 'metrics', loadComponent: () => import('./fuel-dashboard/fuel-dashboard.component').then(m => m.FuelDashboardComponent) 
+        path: 'chart', 
+        loadComponent: () => import('./fuel-dashboard/fuel-dashboard.component').then(m => m.FuelDashboardComponent) 
     }
 ];

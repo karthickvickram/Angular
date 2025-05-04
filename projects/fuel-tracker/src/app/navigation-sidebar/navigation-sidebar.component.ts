@@ -45,9 +45,9 @@ export class NavigationSidebarComponent implements OnInit, AfterViewInit, OnDest
         iconClass: 'pi pi-database',
       },
       {
-        id: sideMenuId.Dashboard,
-        menuName: 'Dashboard',
-        routerLink: '/dashboard',
+        id: sideMenuId.Chart,
+        menuName: 'Charts',
+        routerLink: '/chart',
         iconClass: 'pi pi-chart-line',
       }
     ]
