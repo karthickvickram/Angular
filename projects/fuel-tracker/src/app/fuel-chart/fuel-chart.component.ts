@@ -1,36 +1,23 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { CardModule } from 'primeng/card';
-import { ChartModule } from 'primeng/chart';
-import { FuelService } from '../services/fuelService';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FuelEntry } from '../Model/Fuel';
 import { Subject, takeUntil } from 'rxjs';
+import { FuelService } from '../services/fuelService';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
-  selector: 'app-fuel-fuel-dashboard',
-  imports: [CommonModule, CardModule, ChartModule],
-  templateUrl: './fuel-dashboard.component.html',
-  styleUrl: './fuel-dashboard.component.scss'
+  selector: 'app-fuel-chart',
+  templateUrl: './fuel-chart.component.html',
+  styleUrls: ['./fuel-chart.component.css'],
+  imports: [ChartModule]
 })
-export class FuelDashboardComponent implements OnInit, OnDestroy {
+export class FuelChartComponent implements OnInit, OnDestroy{
 
   fuelEntries: FuelEntry[] = [];
-    private destroyed$ = new Subject<void>();
-  
+  private destroyed$ = new Subject<void>();
+    
+  constructor(private fuelService: FuelService) { }
 
-  totalDistance = 0;
-  totalFuel = 0;
-  totalCost = 0;
-  mileage = 0;
-  fuelEconomy = 0;
-  fuelConsumption = 0;
-
-  constructor(
-    private fuelService: FuelService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
-
-  async ngOnInit() {
+  ngOnInit() {
     this.fuelService.fuelEntries$
     .pipe(
       takeUntil(this.destroyed$)
@@ -38,46 +25,14 @@ export class FuelDashboardComponent implements OnInit, OnDestroy {
     .subscribe({
       next: (entries) => {
         this.fuelEntries = entries;
+        this.generateChartsandBars();
       },
       error: (err) => {
         this.fuelEntries = [];
       }
     });
-
-    if (isPlatformBrowser(this.platformId)) {
-      const { Chart } = await import('chart.js');
-      const zoomPlugin = (await import('chartjs-plugin-zoom')).default;
-      Chart.register(zoomPlugin);
-    }
-  
-    this.getDashboardData();
   }
 
-  getDashboardData() {
-    this.totalFuel = this.fuelEntries.reduce((sum, e) => sum + e.liter, 0);
-    this.totalCost = this.fuelEntries.reduce((sum, e) => sum + e.amount, 0);
-
-    this.totalDistance = 0;
-
-    for (let i = 1; i < this.fuelEntries.length; i++) {
-      const traveled = this.fuelEntries[i].odometer - this.fuelEntries[i - 1].odometer;
-      this.totalDistance += traveled;
-    }
-
-    this.mileage = this.totalDistance && this.totalFuel
-      ? this.totalDistance / this.totalFuel
-      : 0;
-
-    this.fuelEconomy = this.totalDistance && this.totalCost
-      ? this.totalCost / this.totalDistance
-      : 0;
-
-    this.fuelConsumption = this.totalDistance && this.totalFuel
-      ? this.totalFuel / this.totalDistance
-      : 0;
-
-  } 
-  
   chartOptions: any;
   combinedChartData: any;
   generateChartsandBars() {
@@ -157,11 +112,11 @@ export class FuelDashboardComponent implements OnInit, OnDestroy {
           zoom: {
             wheel: { enabled: true },
             pinch: { enabled: true },
-            mode: 'x'
+            mode: null
           },
           pan: {
-            enabled: true,
-            mode: 'x'
+            enabled: false,
+            mode: null
           }
         }
       },
@@ -184,7 +139,7 @@ export class FuelDashboardComponent implements OnInit, OnDestroy {
             display: true,
             text: 'Mileage (km/l)'
           },
-          beginAtZero: true,
+          beginAtZero: false,
           grid: {
             drawOnChartArea: true
           }
@@ -202,11 +157,12 @@ export class FuelDashboardComponent implements OnInit, OnDestroy {
           }
         }
       }
-    };
+    }
   }
-  
+
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
   }
+
 }

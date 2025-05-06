@@ -14,6 +14,6 @@ export const routes: Routes = [
     },
     { 
         path: 'chart', 
-        loadComponent: () => import('./fuel-dashboard/fuel-dashboard.component').then(m => m.FuelDashboardComponent) 
+        loadComponent: () => import('./fuel-chart/fuel-chart.component').then(m => m.FuelChartComponent) 
     }
 ];
