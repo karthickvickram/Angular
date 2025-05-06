@@ -32,15 +32,16 @@ export class FuelMetricsComponent implements OnInit, OnDestroy {
     .subscribe({
       next: (entries) => {
         this.fuelEntries = entries;
+        this.getMetrics();
       },
       error: (err) => {
         this.fuelEntries = [];
+        this.getMetrics();
       }
     });
-    this.getDashboardData();
   }
 
-  getDashboardData() {
+  getMetrics() {
     this.totalFuel = this.fuelEntries.reduce((sum, e) => sum + e.liter, 0);
     this.totalCost = this.fuelEntries.reduce((sum, e) => sum + e.amount, 0);
 
