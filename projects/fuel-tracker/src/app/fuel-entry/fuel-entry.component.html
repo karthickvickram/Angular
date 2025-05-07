@@ -7,19 +7,19 @@
             <div class="card card-1">
                 <h4>Previous Distance</h4>
                 <div class="value">{{ getDistance('last') | number: '1.2-2'}} KM</div>
-                <div class="subtext">Since last week</div>
+                <!-- <div class="subtext">Since last week</div> -->
                 <!-- <div class="icon-bg">📁</div> -->
             </div>
             <div class="card card-2">
                 <h4>Previous Mileage</h4>
                 <div class="value">{{ getMileage('last') | number: '1.2-2'}} KM/L</div>
-                <div class="subtext">Since last week</div>
+                <!-- <div class="subtext">Since last week</div> -->
                 <!-- <div class="icon-bg">📁</div> -->
             </div>
             <div class="card card-3">
                 <h4>Overall Milaeage</h4>
                 <div class="value">{{ getOverAllMileage('last') | number: '1.2-2' }} KM/L</div>
-                <div class="subtext">Since last week</div>
+                <!-- <div class="subtext">Since last week</div> -->
                 <!-- <div class="icon-bg">📁</div> -->
             </div>
         </div>
@@ -30,67 +30,61 @@
                         iconDisplay="input" />
                     <label for="date">Enter Dates</label>
                 </p-floatlabel>
-    
+
                 <p-floatlabel variant="on">
-                    <p-inputnumber formControlName="odometer" inputId="odometer" mode="decimal" [maxFractionDigits]="2" />
+                    <p-inputnumber formControlName="odometer" inputId="odometer" mode="decimal"
+                        [maxFractionDigits]="2" />
                     <label for="odometer">Current Odometer</label>
                 </p-floatlabel>
-    
+
                 <p-float-label variant="on">
                     <p-input-number formControlName="cost" inputId="currency" mode="currency" currency="INR"
                         currencyDisplay="code" locale="en-IN" />
                     <label for="currency">Price</label>
                 </p-float-label>
-    
+
                 <p-float-label variant="on">
                     <p-input-number formControlName="quantity" inputId="liter" mode="decimal" [maxFractionDigits]="2" />
                     <label for="liter">Quantity</label>
                 </p-float-label>
-    
+
             </form>
             <div class="footer">
-                <p-button 
-                    class="footer-submit" 
-                    (click)="onSubmit()" 
-                    [raised]="true"
-                    severity="success" 
-                    label="Submit"
-                    [disabled]="fuelForm.invalid"
-                />
-                <p-button 
-                    class="footer-submit" 
-                    (click)="onClear()" 
-                    [raised]="true"
-                    severity="secondary" 
-                    label="Clear"
-                />
+                <p-button class="footer-submit" (click)="onSubmit()" [raised]="true" severity="success" label="Submit"
+                    [disabled]="fuelForm.invalid" />
+                <p-button class="footer-submit" (click)="onClear()" [raised]="true" severity="secondary"
+                    label="Clear" />
             </div>
         </div>
         <div class="current-data">
-            <div class="card card-1" *ngIf="fuelForm && fuelForm.value && fuelForm.value.odometer && lastIndex && fuelForm.value.odometer > fuelEntries[lastIndex].odometer">
+            <div class="card card-1"
+                *ngIf="fuelForm && fuelForm.value && fuelForm.value.odometer && lastIndex && fuelForm.value.odometer > fuelEntries[lastIndex].odometer">
                 <h4>Travelled Distance</h4>
                 <div class="value">{{ getDistance('current') | number: '1.2-2'}} KM</div>
                 <div class="trend">
-                    <span class="percent">10</span>
-                    <span class="arrow increase">▲</span>
+                    <span class="percent">{{ getPercentChange('distance') }}% </span>
+                    <span class="arrow" [ngClass]="getTrendDirection('distance')">
+                        {{ getTrendDirection('distance') == 'increase' ? '🡅' : getTrendDirection('distance') ==
+                        'decrease' ? '🡇' : 'Same as last'}}
+                    </span>
                 </div>
             </div>
-            <div class="card card-2" *ngIf="fuelForm && fuelForm.value && fuelForm.value.cost && fuelForm.value.quantity">
+            <div class="card card-2"
+                *ngIf="fuelForm && fuelForm.value && fuelForm.value.cost && fuelForm.value.quantity">
                 <h4>Trip Mileage</h4>
                 <div class="value">{{ getMileage('current') | number: '1.2-2'}} KM/L</div>
-                <div class="trend">
-                    <span class="percent">10%</span>
-                    <span class="arrow increase">▲</span>
-                </div>
             </div>
-            <div class="card card-3" *ngIf="fuelForm && fuelForm.value && fuelForm.value.cost && fuelForm.value.quantity">
+            <div class="card card-3"
+                *ngIf="fuelForm && fuelForm.value && fuelForm.value.cost && fuelForm.value.quantity">
                 <h4>Overall Milaeage</h4>
                 <div class="value">{{ getOverAllMileage('current') | number: '1.2-2'}}</div>
                 <div class="trend">
-                    <span class="percent">10%</span>
-                    <span class="arrow decrease">▼</span>
+                    <span class="percent">{{ getPercentChange('overAllMileage') }}% </span>
+                    <span class="arrow" [ngClass]="getTrendDirection('overAllMileage')">
+                        {{ getTrendDirection('overAllMileage') == 'increase' ? '🡅' : getTrendDirection('overAllMileage') == 'decrease' ? '🡇' : 'Same as last'}}
+                    </span>
+                </div>
             </div>
         </div>
+
     </div>
-    
-</div>

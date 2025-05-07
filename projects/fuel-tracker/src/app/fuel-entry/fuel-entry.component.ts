@@ -178,11 +178,12 @@ export class FuelEntryComponent implements OnInit, OnDestroy {
   }
 
   getOverAllMileage(journey: 'last' | 'current') {
-    if (this.mode == 'create' && journey == 'current') {
-      return this.fuelService.calculateOverallMileage(this.fuelEntries.concat(this.createFuelEntry()));
-    } else if (this.mode == 'edit' && journey == 'current' && this.fuelEntries[this.editIndex]?.id) {
-      let id = this.fuelEntries[this.editIndex].id
+    if (this.mode == 'edit' && journey == 'current' && this.fuelEntries[this.editIndex]?.id) {
+      let id = this.fuelEntries[this.editIndex].id;
       return this.fuelService.calculateOverallMileage(this.fuelEntries.filter(x => x.id != id).concat(this.createFuelEntry()));
+    }
+    if (journey == 'current') {
+      return this.fuelService.calculateOverallMileage(this.fuelEntries.concat(this.createFuelEntry()));
     } else {
       return this.fuelService.calculateOverallMileage(this.fuelEntries);
     }
@@ -196,6 +197,27 @@ export class FuelEntryComponent implements OnInit, OnDestroy {
       liter: this.fuelForm.value.quantity || null
     }
     return newEntry;
+  }
+
+  getPercentChange(type: 'distance' | 'overAllMileage') {
+    let initial = type == 'distance' ? this.getDistance('last') : this.getOverAllMileage('last');
+    let final = type == 'distance' ? this.getDistance('current') : this.getOverAllMileage('current');
+
+    if (initial == 0) {
+      return -1
+    }
+    if (type == 'distance') {
+      return (((final - initial) / initial) * 100).toFixed(1);
+    } else {
+      return (((final - initial) / initial) * 100).toFixed(2);
+    }
+  }
+
+  getTrendDirection(type: 'distance' | 'overAllMileage'): 'increase' | 'decrease' | 'nuetral' {
+    const percent = Number(this.getPercentChange(type));
+    if (percent > 0) return 'increase'
+    if (percent < 0) return 'decrease'
+    return 'nuetral'
   }
 
   ngOnDestroy() {
