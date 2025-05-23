@@ -1,34 +1,87 @@
-.metrics-container {
+$primary-color: #17a2b8;
+$hover-color: #117a8b;
+$card-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+
+:host {
+  .metrics-container {
     height: 100%;
     width: 100%;
-  
+    padding: 1.5rem;
+    border-radius: 1rem;
+
     display: grid;
-    grid-template-rows: 1fr 5fr;
-  
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
+    background-color: #f9fafb;
+
     .header {
       color: lightcoral;
       font-weight: 900;
       font-size: 2rem;
-  
+      letter-spacing: 0.5px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .body {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-  
-      p-card {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+
+      ::ng-deep .p-card {
+        background-color: #ffffff;
+        border-radius: 0.5rem;
+        box-shadow: $card-shadow;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      ::ng-deep.p-card-title {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #6c757d;
         text-align: center;
+        margin-bottom: 0.75rem;
+      }
+      
+      .result {
+        font-size: 1.5rem;
         font-weight: bold;
-  
-        p {
-          font-size: 1.25rem;
-          margin-top: 0.5rem;
+        color: #212529;
+        margin: 0;
+        text-align: center;
+      }
+
+      .spend-card {
+        .navigation-row {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 1rem;
+          gap: 0.75rem;
+
+          .nav-button {
+            cursor: pointer;
+            color: $primary-color;
+
+            &:hover {
+              color: $hover-color;
+              transform: scale(1.1);
+            }
+          }
+
+          input {
+            width: 65%;
+            text-align: center;
+            border: 1px solid $primary-color;
+            border-radius: 0.25rem;
+            font-size: large;
+
+            &:focus {
+              outline: none;
+              box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+            }
+          }
         }
       }
     }
   }
-  
+}

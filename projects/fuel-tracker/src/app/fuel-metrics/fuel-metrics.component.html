@@ -4,27 +4,45 @@
   </div>
   <div class="body">
     <p-card header="Total Fuel Entries">
-      <p>{{ fuelEntries.length }}</p>
+      <div class="result">{{ totalEntries }}</div>
     </p-card>
   
     <p-card header="Total Distance (KM)">
-      <p>{{ totalDistance | number: '1.0-2' }}</p>
+      <div class="result">{{ totalDistance | number: '1.0-2' }}</div>
     </p-card>
   
     <p-card header="Total Fuel (L)">
-      <p>{{ totalFuel | number: '1.0-2' }}</p>
-    </p-card>
-  
-    <p-card header="Total Cost (₹)">
-      <p>{{ totalCost | currency: 'INR':'symbol':'1.0-0' }}</p>
+      <div class="result">{{ totalFuel | number: '1.0-2' }}</div>
     </p-card>
   
     <p-card header="Mileage (KM/L)">
-      <p>{{ mileage | number: '1.0-2' }}</p>
+      <div class="result">{{ mileage | number: '1.0-2' }}</div>
     </p-card>
   
     <p-card header="Fuel Economy (₹/KM)">
-      <p>{{ fuelEconomy | currency: 'INR':'symbol':'1.0-2' }}</p>
+      <div class="result">{{ fuelEconomy | currency: 'INR':'symbol':'1.0-2' }}</div>
     </p-card>
+
+    <p-card header="Total Cost (₹)">
+      <div class="result">{{ totalCost | currency: 'INR':'symbol':'1.0-0' }}</div>
+    </p-card>
+
+    <p-card header="Month wise spends" class="spend-card">
+      <div class="navigation-row">
+        <mat-icon class="nav-button" aria-hidden="false" aria-label="Example home icon" fontIcon="arrow_left" (click)="onMonthNavigation('prev')"></mat-icon>
+        <input type="text" class="month-input" [value]="filterMonth | date: 'MMMM YY'"  readonly />
+        <mat-icon class="nav-button" aria-hidden="false" aria-label="Example home icon" fontIcon="arrow_right" (click)="onMonthNavigation('next')"></mat-icon>
+      </div>
+      <div class="result">{{ monthAmt | currency: 'INR':'symbol': '1.0-0' }}</div>
+    </p-card>
+
+    <p-card header="Year wise spends" class="spend-card">
+      <div class="navigation-row">
+        <mat-icon class="nav-button" aria-hidden="false" aria-label="Example home icon" fontIcon="arrow_left" (click)="onYearNavigation('prev')"></mat-icon>
+        <input type="text" class="month-input" [value]="filterYear | date: 'yyyy'"  readonly />
+        <mat-icon class="nav-button" aria-hidden="false" aria-label="Example home icon" fontIcon="arrow_right" (click)="onYearNavigation('next')"></mat-icon>
+      </div>
+      <div class="result">{{ yearAmt | currency: 'INR':'symbol': '1.0-0' }}</div>
+    </p-card> 
   </div>
 </div>
